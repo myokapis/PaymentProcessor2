@@ -1,0 +1,24 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema",
+  "title": "JSON Schema for my JSON file format",
+
+  "type": "object",
+
+    "properties": {
+        "type": {
+            "type": "string"
+        },
+        "serial_number": {
+            "type": "string"
+        },
+        "msr_capable": {
+            "type": "boolean"
+        },
+        "emv_capable": {
+            "type": "boolean"
+        },
+        "nfc_capable": {
+            "type": "boolean"
+        }
+    }
+}

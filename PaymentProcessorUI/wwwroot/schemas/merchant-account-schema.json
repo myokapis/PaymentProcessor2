@@ -1,0 +1,69 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema",
+    "title": "JSON Schema for a merchant account",
+
+    "type": "object",
+    "description": "Properties that describe the merchant account",
+
+    "properties": {
+        "id": {
+            "type": "integer",
+            "description": "Gateway database id of the merchant account"
+        },
+        "name": {
+            "type": "string",
+            "description": "Merchant name"
+        },
+        "city": {
+            "type": "string",
+            "description": "Merchant city"
+        },
+        "state": {
+            "type": "string",
+            "description": "Merchant state"
+        },
+        "account_token": {
+            "type": "string",
+            "description": "The account identifier Example: acc_123456789"
+        },
+        "api_key_id": {
+            "type": "integer",
+            "description": "Database id of the merchant API key"
+        },
+        "as_merchant_account_id": {
+            "type": "integer",
+            "description": "Database id of the processor attributes record for this merchant"
+        },
+        "as_merchant_account_type": {
+            "type": "string",
+            "description": "Identifies the processor for this merchant"
+        },
+        "debit_allowed": {
+            "type": "boolean"
+        },
+        "industry": {
+            "type": "string"
+        },
+        "keyed_allowed": {
+            "type": "boolean"
+        },
+        "keyed_rate": {
+            "type": "string"
+        },
+        "status": {
+            "type": "string"
+        },
+        "string_batch_time": {
+            "type": "string"
+        },
+        "time_zone": {
+            "type": "string"
+        },
+        "tipping_mode": {
+            "type": "string"
+        },
+        "transaction_fee": {
+            "type": "integer"
+        }
+    }
+}

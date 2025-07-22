@@ -1,0 +1,22 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net9.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="AWSSDK.KeyManagementService" Version="4.0.3.5" />
+    <PackageReference Include="Dapper" Version="2.1.66" />
+    <PackageReference Include="Dapper.SqlBuilder" Version="2.1.66" />
+    <PackageReference Include="MySqlConnector" Version="2.4.0" />
+    <PackageReference Include="SqlKata" Version="4.0.1" />
+    <PackageReference Include="SqlKata.Execution" Version="4.0.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Payment.Messages\Payment.Messages.csproj" />
+  </ItemGroup>
+
+</Project>

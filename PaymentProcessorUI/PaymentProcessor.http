@@ -1,0 +1,82 @@
+@PaymentProcessor_HostAddress = http://localhost:5144
+
+GET {{PaymentProcessor_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
+
+POST {{PaymentProcessor_HostAddress}}/cardpayment/payment
+Content-Type: application/json
+
+{
+  "version": "1.1.0",
+  "merchant_account_token": "acc_12345678",
+  "merchant": {
+    "id": 44,
+    "name": "My Merchant",
+    "city": "San Antonio",
+    "state": "TX",
+    "account_token": "acc_12345678",
+    "as_merchant_account_id": 13,
+    "as_merchant_account_type": "Omaha",
+    "debit_allowed": false,
+    "industry": "RETAIL",
+    "keyed_allowed": true,
+    "keyed_rate": "retail",
+    "status": "ACTIVE",
+    "string_batch_time": "2:00 pm",
+    "time_zone": "UTC",
+    "tipping_mode": "IDK",
+    "transaction_fee": 0
+  },
+  "merchant_account_specific": {
+    "tsysd_bin": "686868",
+    "tsysd_agent_bank_number": "000000",
+    "tsysd_chain_number": "111111",
+    "tsysd_zip_code": "85284",
+    "tsysd_sic_code": "1111",
+    "tsysd_merchant_number": "886000001054",
+    "tsysd_store_number": "4159",
+    "tsysd_location_number": "44",
+    "tsysd_terminal_number": "4159",
+    "tsysd_terminal_id": "V1111111"
+  },
+  "transaction_details": {
+    "id": "660b3f1e-43a9-41c3-8351-670dd4f14b41",
+    "total_amount": 3,
+    "encrypted_card_data": "dklsajfdlskjfa",
+    "reader": {
+      "type": "NO_READER",
+      "serial_number": "8675309",
+      "msr_capable": true,
+      "emv_capable": false,
+      "nfc_capable": false
+    },
+    "fallback": false,
+    "action": "SALE",
+    "product_context": "CARD_PRESENT",
+    "metadata": {
+      "cardAuthentication": false,
+      "userEmail": "someone@example.com",
+      "platform": "virtual_terminal",
+      "user_agent": "djskfjadlsf",
+      "time_zone": "America/Chicago",
+      "ip_address": "9.10.11.12",
+      "items": [
+        {
+          "id": 5,
+          "itemType": "item",
+          "name": "Quick Item",
+          "price": 3,
+          "quantity": 1
+        }],
+      "customer": {
+        "save_card": true
+      }
+    }
+  },
+  "expires_at": "2025-05-06"
+}
+
+
+###

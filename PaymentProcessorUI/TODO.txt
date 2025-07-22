@@ -1,0 +1,32 @@
+﻿Envelope
+- Add data access, models
+
+Contexts
+- maybe create a card context instead of a card
+- look at other helpers and integrate them into the context
+  - card brand (?rely on card object and add to card context?)
+  - credential on file (call this payment context)
+  - product context (?add to card context? not sure if this is reliable)
+  - transaction conditions (?add to card context?)
+  - transaction method (?add to card context?)
+
+Metadata
+- make it into an object instead of a dictionary?
+
+Build out helpers
+Build process steps
+- acquire envelope
+- decrypt data
+- get batch info
+- build request
+- save request to log
+- send request
+- parse response
+- update log
+- build response
+- enqueue response
+- enqueue auto-void/timeout reversal jobs
+Add configuration
+Add dependency injection extension methods
+Package service classes from template repo
+Package web service classes from template repo

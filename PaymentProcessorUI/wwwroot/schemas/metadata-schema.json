@@ -1,0 +1,47 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema",
+  "title": "JSON Schema for my JSON file format",
+
+  "type": "object",
+
+  "properties": {
+    "userEmail": {
+        "type": "string"
+    },
+    "platform": {
+        "type": "string"
+    },
+    "user_agent": {
+        "type": "string"
+    },
+    "time_zone": {
+        "type": "string"
+    },
+    "ip_address": {
+        "type": "string"
+    },
+    "items": {
+        "type": "array",
+        "items": {
+            "type": "object",
+            "properties": {
+                "id": {
+                    "type": "string"
+                },
+                "itemType": {
+                    "type": "string"
+                },
+                "name": {
+                    "type": "string"
+                },
+                "price": {
+                    "type": "number"
+                },
+                "quantity": {
+                    "type": "number"
+                }
+            }
+        }
+    }
+  }
+}

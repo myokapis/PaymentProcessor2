@@ -1,0 +1,26 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema",
+  "title": "JSON Schema for a request payload",
+
+  "type": "object",
+
+  "properties": {
+    "version": {
+        "type": "string",
+        "description": "The payload version"
+    },
+    "merchant_account_token": {
+        "type": "string",
+        "description": "The account identifier Example: acc_123456789"
+    },
+    "merchant_account": {
+         "$ref": "merchant-account-schema.json"
+    },
+    "merchant_account_specific": {
+
+    },
+    "transaction_details": {
+
+    }
+  }
+}
