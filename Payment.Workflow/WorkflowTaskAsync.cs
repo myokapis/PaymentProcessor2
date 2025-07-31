@@ -11,8 +11,6 @@ namespace Payment.Workflow
             this.workflowContext = workflowContext;
         }
 
-        //public IWorkflowContext WorkflowContext { get; init; }
-
         public async Task<bool> RunAsync()
         {
             if (workflowContext.WorkflowState)
