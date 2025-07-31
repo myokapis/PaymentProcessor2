@@ -5,7 +5,7 @@ namespace TsysProcessor.Processor.TransactionTasks
 {
     public abstract class TsysTaskAsync : WorkflowTaskAsync<TsysWorkflowContext>
     {
-        protected TsysTaskAsync(TsysWorkflowContext workflowContext) : base(workflowContext)
+        public TsysTaskAsync(TsysWorkflowContext workflowContext) : base(workflowContext)
         {
         }
     }

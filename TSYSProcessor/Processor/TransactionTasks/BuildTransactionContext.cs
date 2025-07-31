@@ -35,17 +35,21 @@ namespace TsysProcessor.Processor.TransactionSteps
                 throw new ArgumentNullException("Transaction");
 
             var actionContext = actionContextBuilder.Build(transaction);
+            var cardContext = await cardContextBuilder.BuildAsync(transaction);
+            var cardOnFileContext = cardOnFileContextBuilder.Build(transaction, actionContext);
+            var envelope = envelopeBuilder.Build(transaction);
+            var readerContext = readerContextBuilder.Build(transaction);
 
             var transactionContext = new TsysTransactionContext()
             {
                 ActionContext = actionContext,
-                CardContext = await cardContextBuilder.BuildAsync(transaction),
-                CardOnFileContext = cardOnFileContextBuilder.Build<CardOnFileContext>(transaction, actionContext),
+                CardContext = cardContext,
+                CardOnFileContext = cardOnFileContext,
                 Details = transaction.Details,
-                Envelope = envelopeBuilder.Build(transaction),
+                Envelope = envelope,
                 Merchant = transaction.Merchant,
                 ProcessorAttributes = transaction.ProcessorAttributes,
-                ReaderContext = readerContextBuilder.Build(transaction)
+                ReaderContext = readerContext
             };
 
             WorkflowContext.TransactionContext = transactionContext;

@@ -23,7 +23,7 @@ namespace Tests.Payment.Processor.Builders
             var transaction = SetupTransaction(paymentPlanType, paymentNumber, cardState);
             var actionContext = SetupActionContext(isReturn, cardState);
             var testBuilder = new CardOnFileContextBuilder();
-            var testContext = testBuilder.Build<ActionContext>(transaction, actionContext.Object);
+            var testContext = testBuilder.Build(transaction, actionContext.Object);
             testContext.CardOnFile.Should().Be(expectedValue);
         }
 
@@ -36,7 +36,7 @@ namespace Tests.Payment.Processor.Builders
             var transaction = SetupTransaction(paymentPlanType, paymentNumber, cardState);
             var actionContext = SetupActionContext(false, cardState);
             var testBuilder = new CardOnFileContextBuilder();
-            var testContext = testBuilder.Build<ActionContext>(transaction, actionContext.Object);
+            var testContext = testBuilder.Build(transaction, actionContext.Object);
             testContext.FirstPayment.Should().Be(expectedValue);
         }
 
@@ -49,7 +49,7 @@ namespace Tests.Payment.Processor.Builders
             var transaction = SetupTransaction(paymentPlanType, paymentNumber, cardState);
             var actionContext = SetupActionContext(false, cardState);
             var testBuilder = new CardOnFileContextBuilder();
-            var testContext = testBuilder.Build<ActionContext>(transaction, actionContext.Object);
+            var testContext = testBuilder.Build(transaction, actionContext.Object);
             testContext.InstallmentPayment.Should().Be(expectedValue);
         }
 
@@ -62,7 +62,7 @@ namespace Tests.Payment.Processor.Builders
             var transaction = SetupTransaction(paymentPlanType, paymentNumber, cardState);
             var actionContext = SetupActionContext(false, cardState);
             var testBuilder = new CardOnFileContextBuilder();
-            var testContext = testBuilder.Build<ActionContext>(transaction, actionContext.Object);
+            var testContext = testBuilder.Build(transaction, actionContext.Object);
             testContext.MerchantInitiated.Should().Be(expectedValue);
         }
 
@@ -76,7 +76,7 @@ namespace Tests.Payment.Processor.Builders
             var transaction = SetupTransaction(paymentPlanType, paymentNumber, cardState);
             var actionContext = SetupActionContext(false, cardState);
             var testBuilder = new CardOnFileContextBuilder();
-            var testContext = testBuilder.Build<ActionContext>(transaction, actionContext.Object);
+            var testContext = testBuilder.Build(transaction, actionContext.Object);
             testContext.MultipartPayment.Should().Be(expectedValue);
         }
 
@@ -90,7 +90,7 @@ namespace Tests.Payment.Processor.Builders
             var transaction = SetupTransaction(paymentPlanType, paymentNumber, cardState);
             var actionContext = SetupActionContext(false, cardState);
             var testBuilder = new CardOnFileContextBuilder();
-            var testContext = testBuilder.Build<ActionContext>(transaction, actionContext.Object);
+            var testContext = testBuilder.Build(transaction, actionContext.Object);
             testContext.OneTimePayment.Should().Be(expectedValue);
         }
 
@@ -104,7 +104,7 @@ namespace Tests.Payment.Processor.Builders
             var transaction = SetupTransaction(paymentPlanType, paymentNumber, cardState);
             var actionContext = SetupActionContext(false, cardState);
             var testBuilder = new CardOnFileContextBuilder();
-            var testContext = testBuilder.Build<ActionContext>(transaction, actionContext.Object);
+            var testContext = testBuilder.Build(transaction, actionContext.Object);
             testContext.PaymentPlanId.Should().Be(expectedValue);
         }
 
@@ -118,7 +118,7 @@ namespace Tests.Payment.Processor.Builders
             var transaction = SetupTransaction(paymentPlanType, paymentNumber, cardState);
             var actionContext = SetupActionContext(false, cardState);
             var testBuilder = new CardOnFileContextBuilder();
-            var testContext = testBuilder.Build<ActionContext>(transaction, actionContext.Object);
+            var testContext = testBuilder.Build(transaction, actionContext.Object);
             testContext.Platform.Should().Be(expectedValue);
         }
 
@@ -132,7 +132,7 @@ namespace Tests.Payment.Processor.Builders
             var transaction = SetupTransaction(paymentPlanType, paymentNumber, cardState);
             var actionContext = SetupActionContext(false, cardState);
             var testBuilder = new CardOnFileContextBuilder();
-            var testContext = testBuilder.Build<ActionContext>(transaction, actionContext.Object);
+            var testContext = testBuilder.Build(transaction, actionContext.Object);
             testContext.RecurringPayment.Should().Be(expectedValue);
         }
 
@@ -147,7 +147,7 @@ namespace Tests.Payment.Processor.Builders
             var transaction = SetupTransaction(paymentPlanType, paymentNumber, cardState);
             var actionContext = SetupActionContext(false, cardState);
             var testBuilder = new CardOnFileContextBuilder();
-            var testContext = testBuilder.Build<ActionContext>(transaction, actionContext.Object);
+            var testContext = testBuilder.Build(transaction, actionContext.Object);
             testContext.SaveCard.Should().Be(expectedValue);
         }
 
@@ -161,7 +161,7 @@ namespace Tests.Payment.Processor.Builders
             var transaction = SetupTransaction(paymentPlanType, paymentNumber, cardState);
             var actionContext = SetupActionContext(false, cardState);
             var testBuilder = new CardOnFileContextBuilder();
-            var testContext = testBuilder.Build<ActionContext>(transaction, actionContext.Object);
+            var testContext = testBuilder.Build(transaction, actionContext.Object);
             testContext.ScheduledPayment.Should().Be(expectedValue);
         }
 
@@ -175,7 +175,7 @@ namespace Tests.Payment.Processor.Builders
             var transaction = SetupTransaction(paymentPlanType, paymentNumber, cardState);
             var actionContext = SetupActionContext(false, cardState);
             var testBuilder = new CardOnFileContextBuilder();
-            var testContext = testBuilder.Build<ActionContext>(transaction, actionContext.Object);
+            var testContext = testBuilder.Build(transaction, actionContext.Object);
             testContext.SequenceIndicator.Should().Be(expectedValue);
         }
 
@@ -189,7 +189,7 @@ namespace Tests.Payment.Processor.Builders
             var transaction = SetupTransaction(paymentPlanType, paymentNumber, cardState);
             var actionContext = SetupActionContext(false, cardState);
             var testBuilder = new CardOnFileContextBuilder();
-            var testContext = testBuilder.Build<ActionContext>(transaction, actionContext.Object);
+            var testContext = testBuilder.Build(transaction, actionContext.Object);
             testContext.TotalPaymentCount.Should().Be(expectedValue);
         }
 

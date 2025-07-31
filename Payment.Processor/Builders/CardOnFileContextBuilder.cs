@@ -9,7 +9,7 @@ namespace Payment.Processor.Builders
     {
         public CardOnFileContextBuilder() { }
 
-        public CardOnFileContext Build<TContext>(ITransactionModel transaction, IActionContext actionContext)
+        public CardOnFileContext Build(ITransactionModel transaction, IActionContext actionContext)
         {
             var metadata = transaction.Details.Metadata;
             var sequenceIndicator = SequenceIndicator(transaction);
