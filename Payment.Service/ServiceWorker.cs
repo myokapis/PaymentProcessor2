@@ -32,12 +32,12 @@ namespace Payment.Service
             this.scopeFactory = scopeFactory;
         }
 
-        protected async Task DeleteFromQueue(string receiptHandle)
+        protected virtual async Task DeleteFromQueue(string receiptHandle)
         {
             await sqsClient.DeleteMessageAsync(config.TransactionQueueUrl, receiptHandle);
         }
 
-        protected async Task EnqueueResult(TResult result)
+        protected virtual async Task EnqueueResult(TResult result)
         {
             var resultMessage = JsonSerializer.Serialize(result);
             await sqsClient.SendMessageAsync(config.ResultQueueUrl, resultMessage);
@@ -79,12 +79,12 @@ namespace Payment.Service
 
         protected abstract Task HandleInvalidMessage(IProcessingValues<TTransaction> processingValues);
 
-        protected uint NextTaskId()
+        protected virtual uint NextTaskId()
         {
             return taskId++;
         }
 
-        protected async Task ProcessMessages(List<Message> messages, CancellationToken stoppingToken)
+        protected virtual async Task ProcessMessages(List<Message> messages, CancellationToken stoppingToken)
         {
             var timestamp = DateTime.UtcNow;
 
@@ -133,7 +133,7 @@ namespace Payment.Service
 
         protected abstract void SendHealthCheck();
 
-        protected bool ValidateTransaction(TTransaction? tsysTransaction)
+        protected virtual bool ValidateTransaction(TTransaction? tsysTransaction)
         {
             if (tsysTransaction == null) return false;
 
