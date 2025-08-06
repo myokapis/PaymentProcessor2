@@ -41,13 +41,10 @@ namespace Tests.Payment.Processor.TestHelpers
 
         public static Details BuildDetails(Dictionary<string, string> detailsAttributes, Metadata? metadata, Reader reader)
         {
-            Guid? associatedId = !Guid.TryParse(detailsAttributes["AssociatedId"], out var result) ?
-                result : null;
-
             return new Details()
             {
                 Action = detailsAttributes["Action"] ?? "sale",
-                AssociatedId = associatedId,
+                AssociatedId = detailsAttributes["AssociatedId"],
                 CardOnFile = detailsAttributes["CardOnFile"],
                 EncryptedCardData = detailsAttributes["EncryptedCardData"],
                 Metadata = metadata,
