@@ -17,8 +17,6 @@ namespace TsysProcessor.Processor
         protected override void HandleException(Exception exception)
         {
             // TODO: log error here
-            //       do we need an async version or do most loggers buffer and handle
-            //       writes on a background task?
         }
 
         protected override async Task RunWorkflowTasks()
@@ -32,7 +30,6 @@ namespace TsysProcessor.Processor
             RunWorkflowTask<ParseResponse>();
             RunWorkflowTask<BuildResponseEnvelope>();
             await RunWorkflowTaskAsync<SaveResponse>();
-            await RunWorkflowTaskAsync<EnqueueTransactionResponse>();
             await RunWorkflowTaskAsync<ReleaseLock>();
         }
     }

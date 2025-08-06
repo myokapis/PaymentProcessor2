@@ -42,7 +42,7 @@ Content-Type: application/json
     "tsysd_terminal_id": "V1111111"
   },
   "transaction_details": {
-    "id": "660b3f1e-43a9-41c3-8351-670dd4f14b41",
+    "id": "ch_660b3f1e-43a9-41c3-8351-670dd4f14b41",
     "total_amount": 3,
     "encrypted_card_data": "dklsajfdlskjfa",
     "reader": {

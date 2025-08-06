@@ -58,12 +58,12 @@ namespace Payment.Workflow
         }
     }
 
-    public abstract class WorkflowRunner<T> : WorkflowRunner where T : IWorkflowContext
+    public abstract class WorkflowRunner<TContext> : WorkflowRunner, IWorkflowRunner<TContext> where TContext : IWorkflowContext
     {
         protected WorkflowRunner(WorkflowTaskFactory workflowTaskFactory, IWorkflowContext workflowContext) : base(workflowTaskFactory, workflowContext)
         {
         }
 
-        public T WorkflowContext => (T)workflowContext;
+        public TContext WorkflowContext => (TContext)workflowContext;
     }
 }

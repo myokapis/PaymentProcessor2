@@ -2,8 +2,7 @@
 
 namespace Payment.Processor.Transaction.Context
 {
-    public class TransactionContext<TEnvelope, TAttributes> : // ITransactionContext,
-                                                              ITransactionContext<TEnvelope, TAttributes>
+    public class TransactionContext<TEnvelope, TAttributes> : ITransactionContext<TEnvelope, TAttributes>
         where TEnvelope : IEnvelope
         where TAttributes : IProcessorAttributes
     {
@@ -17,20 +16,5 @@ namespace Payment.Processor.Transaction.Context
         public required TAttributes ProcessorAttributes { get; set; }
         public required ReaderContext ReaderContext { get; set; }
         public required ActionContext ActionContext { get; set; }
-
-        // TODO: simplify this generic nonsense
-        //IEnvelope? ITransactionContext.Envelope { get => Envelope; set => Envelope = (TEnvelope?)value; }
-
-        //IEnvelope<TEnvelope>? ITransactionContext<TEnvelope, TAttributes>.Envelope
-        //{ 
-        //    get => Envelope; 
-        //    set => Envelope = (TEnvelope?)value; 
-        //}
-
-        //IProcessorAttributes ITransactionContext.ProcessorAttributes
-        //{
-        //    get => ProcessorAttributes;
-        //    set => ProcessorAttributes = (TAttributes)value;
-        //}
     }
 }

@@ -3,12 +3,13 @@ using System.Text.Json.Serialization;
 
 namespace Payment.Processor.Transaction.Model
 {
+    // TODO: add validations particularly on the token
     public class Details
     {
         [RegularExpression(@"^(AUTH|AUTO_VOID|BALANCE_INQUIRY|CAPTURE|CARD_AUTHENTICATION|PARTIAL_REVERSAL|PRE_AUTH|RETURN|SALE|TIMEOUT_REVERSAL|VOID)$")]
         public required string Action { get; init; }
 
-        public Guid? AssociatedId { get; init; }
+        public string? AssociatedId { get; init; }
         public int? BeverageAmount { get; init; }
 
         [JsonPropertyName("encrypted_card_data")]
@@ -21,10 +22,10 @@ namespace Payment.Processor.Transaction.Model
         public object? Ecommerce { get; init; }
         public bool? Fallback { get; init; }
         public int? FoodAmount { get; init; }
-        public Guid Id { get; set; }
+        public string? Id { get; set; }
         public Metadata? Metadata { get; init; }
         public object? Moto { get; init; }
-        public Guid? OriginalId { get; init; }
+        public string? OriginalId { get; init; }
         public object? ProcessorOptions { get; init; }
         public string? ProductContext { get; set; }
         public required Reader Reader { get; set; }
