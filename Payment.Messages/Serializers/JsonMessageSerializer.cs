@@ -5,10 +5,23 @@ using Payment.Messages.Serializers.Formatters;
 
 namespace Payment.Messages.Serializers
 {
+    /// <summary>
+    /// Implements basic functionality for serializing a message to a JSON string.
+    /// </summary>
     public class JsonMessageSerializer : MessageSerializer, IJsonMessageSerializer
     {
+        /// <summary>
+        /// Constructs and instance of the JSON message serializer.
+        /// </summary>
+        /// <param name="formatter">The formatter to be used when preparing the message data.</param>
         public JsonMessageSerializer(IFormatter formatter) : base(formatter) { }
 
+        /// <summary>
+        /// Serializes an accessible message to a JSON string.
+        /// </summary>
+        /// <param name="message">The message to be serialized.</param>
+        /// <param name="isMasked">Turns masking of sensitive data on and off.</param>
+        /// <returns>A JSON string representing the original message.</returns>
         public override string SerializeMessage(IAccessibleMessage? message, bool isMasked = false)
         {
             if (message == null) return "";
@@ -21,6 +34,12 @@ namespace Payment.Messages.Serializers
             return JsonNodeToString(jsonNode);
         }
 
+        /// <summary>
+        /// Serializes an accessible message to a JSON string.
+        /// </summary>
+        /// <param name="message">The message to be serialized.</param>
+        /// <param name="builder">A string builder into which the serialized message is written.</param>
+        /// <param name="isMasked">Turns masking of sensitive data on and off.</param>
         public override void SerializeMessage(IAccessibleMessage? message, StringBuilder builder, bool isMasked = false)
         {
             if (message == null) return;

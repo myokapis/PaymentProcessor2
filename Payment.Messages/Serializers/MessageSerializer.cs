@@ -1,23 +1,41 @@
 ﻿using System.Text;
-using Payment.Messages.Attributes.Format;
 using Payment.Messages.Serializers.Formatters;
 
 namespace Payment.Messages.Serializers
 {
+    /// <summary>
+    /// An abstract class that defines the basic functionality of a message serializer.
+    /// </summary>
     public abstract class MessageSerializer : IMessageSerializer
     {
         protected readonly IFormatter formatter;
 
+        /// <summary>
+        /// Constructs an instance of the message serializer.
+        /// </summary>
+        /// <param name="formatter">The formatter to be used when preparing the message data.</param>
         public MessageSerializer(IFormatter formatter)
         {
             this.formatter = formatter;
         }
 
+        /// <summary>
+        /// Serializes an accessible message to a string.
+        /// </summary>
+        /// <param name="message">The message to be serialized.</param>
+        /// <param name="isMasked">Turns masking of sensitive data on and off.</param>
+        /// <returns>A string representing the original message.</returns>
         public virtual string SerializeMessage(IAccessibleMessage? message, bool isMasked = false)
         {
             throw new NotImplementedException();
         }
 
+        /// <summary>
+        /// Serializes an accessible message to a string.
+        /// </summary>
+        /// <param name="message">The message to be serialized.</param>
+        /// <param name="builder">A string builder into which the serialized message is written.</param>
+        /// <param name="isMasked">Turns masking of sensitive data on and off.</param>
         public virtual void SerializeMessage(IAccessibleMessage? message, StringBuilder builder, bool isMasked = false)
         {
             throw new NotImplementedException();

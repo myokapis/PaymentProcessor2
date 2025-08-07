@@ -7,55 +7,92 @@ namespace Payment.Messages.Serializers.Formatters
     //       for now we'll use format strings with invariant culture.
     public class Formatter : IFormatter
     {
-        public string FormatValue(char value, IFormatAttribute? _formatter)
+        /// <summary>
+        /// Formats a char value to a string.
+        /// </summary>
+        /// <param name="value">The value to be formatted.</param>
+        /// <param name="formatter">The format attribute that controls how formatting occurs.</param>
+        /// <returns>A formatted string representing the original value.</returns>
+        public string FormatValue(char value, IFormatAttribute? _formatAttribute)
         {
             return (value == default(char)) ? "" : value.ToString();
         }
 
-        public string FormatValue(DateTime value, IFormatAttribute? formatter)
+        /// <summary>
+        /// Formats a date/time value to a string.
+        /// </summary>
+        /// <param name="value">The value to be formatted.</param>
+        /// <param name="formatter">The format attribute that controls how formatting occurs.</param>
+        /// <returns>A formatted string representing the original value.</returns>
+        public string FormatValue(DateTime value, IFormatAttribute? formatAttribute)
         {
-            var workingFormatter = formatter ?? DefaultDateFormatter;
+            var workingFormatter = formatAttribute ?? DefaultDateFormatAttribute;
             return value.ToString(workingFormatter.FormatString, CultureInfo.InvariantCulture);
         }
 
-        public string FormatValue(decimal value, IFormatAttribute? formatter)
+        /// <summary>
+        /// Formats a decimal value to a string.
+        /// </summary>
+        /// <param name="value">The value to be formatted.</param>
+        /// <param name="formatter">The format attribute that controls how formatting occurs.</param>
+        /// <returns>A formatted string representing the original value.</returns>
+        public string FormatValue(decimal value, IFormatAttribute? formatAttribute)
         {
-            var workingFormatter = formatter ?? DefaultDecimalFormatter;
+            var workingFormatter = formatAttribute ?? DefaultDecimalFormatAttribute;
             return value.ToString(workingFormatter.FormatString, CultureInfo.InvariantCulture);
         }
 
-        public string FormatValue(int value, IFormatAttribute? formatter)
+        /// <summary>
+        /// Formats an integer value to a string.
+        /// </summary>
+        /// <param name="value">The value to be formatted.</param>
+        /// <param name="formatter">The format attribute that controls how formatting occurs.</param>
+        /// <returns>A formatted string representing the original value.</returns>
+        public string FormatValue(int value, IFormatAttribute? formatAttribute)
         {
-            var workingFormatter = formatter ?? DefaultIntegerFormatter;
+            var workingFormatter = formatAttribute ?? DefaultIntegerFormatAttribute;
             return value.ToString(workingFormatter.FormatString, CultureInfo.InvariantCulture);
         }
 
-        public string FormatValue(object value, IFormatAttribute? formatter)
+        /// <summary>
+        /// Formats an object value to a string. The appropriate formatter is selected based on the
+        /// object type.
+        /// </summary>
+        /// <param name="value">The value to be formatted.</param>
+        /// <param name="formatter">The format attribute that controls how formatting occurs.</param>
+        /// <returns>A formatted string representing the original value.</returns>
+        public string FormatValue(object value, IFormatAttribute? formatAttribute)
         {
             switch(value)
             {
                 case char:
-                    return FormatValue((char)value, formatter);
+                    return FormatValue((char)value, formatAttribute);
                 case DateTime:
-                    return FormatValue((DateTime)value, formatter);
+                    return FormatValue((DateTime)value, formatAttribute);
                 case decimal:
-                    return FormatValue((decimal)value, formatter);
+                    return FormatValue((decimal)value, formatAttribute);
                 case int:
-                    return FormatValue((int)value, formatter);
+                    return FormatValue((int)value, formatAttribute);
                 case string:
-                    return FormatValue((string)value, formatter);
+                    return FormatValue((string)value, formatAttribute);
                 case uint:
-                    return FormatValue((uint)value, formatter);
+                    return FormatValue((uint)value, formatAttribute);
                 case ulong:
-                    return FormatValue((ulong)value, formatter);
+                    return FormatValue((ulong)value, formatAttribute);
                 default:
                     return value.ToString() ?? "";
             }
         }
 
-        public string FormatValue(string value, IFormatAttribute? formatter)
+        /// <summary>
+        /// Formats an object value to a string.
+        /// </summary>
+        /// <param name="value">The value to be formatted.</param>
+        /// <param name="formatter">The format attribute that controls how formatting occurs.</param>
+        /// <returns>A formatted string representing the original value.</returns>
+        public string FormatValue(string value, IFormatAttribute? formatAttribute)
         {
-            var workingFormatter = formatter ?? DefaultStringFormatter;
+            var workingFormatter = formatAttribute ?? DefaultStringFormatAttribute;
 
             if (workingFormatter.FormatString == string.Empty)
                 return value;
@@ -63,24 +100,36 @@ namespace Payment.Messages.Serializers.Formatters
             return string.Format(workingFormatter.FormatString, value);
         }
 
-        public string FormatValue(uint value, IFormatAttribute? formatter)
+        /// <summary>
+        /// Formats an unsigned integer value to a string.
+        /// </summary>
+        /// <param name="value">The value to be formatted.</param>
+        /// <param name="formatter">The format attribute that controls how formatting occurs.</param>
+        /// <returns>A formatted string representing the original value.</returns>
+        public string FormatValue(uint value, IFormatAttribute? formatAttribute)
         {
-            var workingFormatter = formatter ?? DefaultIntegerFormatter;
+            var workingFormatter = formatAttribute ?? DefaultIntegerFormatAttribute;
             return value.ToString(workingFormatter.FormatString, CultureInfo.InvariantCulture);
         }
 
-        public string FormatValue(ulong value, IFormatAttribute? formatter)
+        /// <summary>
+        /// Formats an unsigned long value to a string.
+        /// </summary>
+        /// <param name="value">The value to be formatted.</param>
+        /// <param name="formatter">The format attribute that controls how formatting occurs.</param>
+        /// <returns>A formatted string representing the original value.</returns>
+        public string FormatValue(ulong value, IFormatAttribute? formatAttribute)
         {
-            var workingFormatter = formatter ?? DefaultIntegerFormatter;
+            var workingFormatter = formatAttribute ?? DefaultIntegerFormatAttribute;
             return value.ToString(workingFormatter.FormatString, CultureInfo.InvariantCulture);
         }
 
         #region protected methods & properties
 
-        protected static IFormatAttribute DefaultDateFormatter { get; } = new DateFormatAttribute();
-        protected static IFormatAttribute DefaultDecimalFormatter { get; } = new DecimalFormatAttribute();
-        protected static IFormatAttribute DefaultIntegerFormatter { get; } = new IntegerFormatAttribute();
-        protected static IFormatAttribute DefaultStringFormatter { get; } = new StringFormatAttribute();
+        protected static IFormatAttribute DefaultDateFormatAttribute { get; } = new DateFormatAttribute();
+        protected static IFormatAttribute DefaultDecimalFormatAttribute { get; } = new DecimalFormatAttribute();
+        protected static IFormatAttribute DefaultIntegerFormatAttribute { get; } = new IntegerFormatAttribute();
+        protected static IFormatAttribute DefaultStringFormatAttribute { get; } = new StringFormatAttribute();
 
         #endregion
     }
