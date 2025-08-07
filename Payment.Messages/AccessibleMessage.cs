@@ -6,8 +6,15 @@ using Payment.Messages.Attributes.Serialization;
 
 namespace Payment.Messages
 {
+    /// <summary>
+    /// Wraps a type and describes the properties on the type.
+    /// </summary>
+    /// <typeparam name="T">The type of the class for which properties are described.</typeparam>
     public class AccessibleMessage<T> : IAccessibleMessage
     {
+        /// <summary>
+        /// Constructs an instance of the wrapper class.
+        /// </summary>
         public AccessibleMessage()
         { }
 
@@ -30,6 +37,9 @@ namespace Payment.Messages
         [NotMapped]
         public int FieldCount => fieldDefinitions.Value.Length;
 
+        /// <summary>
+        /// Metadata about each of the described properties.
+        /// </summary>
         [JsonIgnore]
         [NotMapped]
         public IEnumerable<FieldDefinition> FieldDefinitions
