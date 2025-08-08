@@ -2,6 +2,10 @@
 
 namespace Payment.Processor.Enums
 {
+
+    /// <summary>
+    /// An enumeration of CardFlight payment platforms.
+    /// </summary>
     public enum Platform
     {
         Unknown,

@@ -5,10 +5,22 @@ using Payment.Processor.Transaction.Model;
 
 namespace Payment.Processor.Builders
 {
+    /// <summary>
+    /// Builds a card on file context.
+    /// </summary>
     public class CardOnFileContextBuilder : IBuilder<CardOnFileContext>
     {
+        /// <summary>
+        /// Creates an instance of the card on file context builder.
+        /// </summary>
         public CardOnFileContextBuilder() { }
 
+        /// <summary>
+        /// Builds a card on file context from a transaction model and action context.
+        /// </summary>
+        /// <param name="transaction">The transaction model providing the data.</param>
+        /// <param name="actionContext">The action context providing the data.</param>
+        /// <returns>An instance of a card on file context corresponding to the data in the transaction model and action context.</returns>
         public CardOnFileContext Build(ITransactionModel transaction, IActionContext actionContext)
         {
             var metadata = transaction.Details.Metadata;

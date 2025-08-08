@@ -1,5 +1,8 @@
 ﻿namespace Payment.Processor.Transaction.Context
 {
+    /// <summary>
+    /// Describes the basic atrributes of an envelope.
+    /// </summary>
     public interface IEnvelope
     {
         /// <summary>

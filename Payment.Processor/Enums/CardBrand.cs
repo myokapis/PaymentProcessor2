@@ -2,6 +2,9 @@
 
 namespace Payment.Processor.Enums
 {
+    /// <summary>
+    /// An enumeration of card brands.
+    /// </summary>
     public enum CardBrand
     {
         Unknown,

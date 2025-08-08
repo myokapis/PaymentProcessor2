@@ -1,6 +1,9 @@
 ﻿namespace Payment.Processor.Enums
 {
     // TODO: remove any reader types that will never come through this app 
+    /// <summary>
+    /// An enumeration of CardFlight supported card readers.
+    /// </summary>
     public enum ReaderType
     {
         UNKNOWN,

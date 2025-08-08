@@ -13,11 +13,11 @@ using Serilog;
 // TODO: add sanitization on logs (see Isaac's project)
 namespace Payment.Service
 {
-    public abstract class ServiceWorker<TTransaction, TResult> : BackgroundService
+    public abstract class QueueServiceWorker<TTransaction, TResult> : BackgroundService
         where TTransaction : class
         where TResult : class
     {
-        protected ServiceConfig config;
+        protected QueueServiceConfig config;
         protected DateTime nextHealthCheck = DateTime.UtcNow;
         protected int rateLimitEvents = 0;
         protected ConcurrentDictionary<uint, DateTime> runningTasks = new();
@@ -25,7 +25,7 @@ namespace Payment.Service
         protected IServiceScopeFactory scopeFactory;
         protected uint taskId = 0;
 
-        public ServiceWorker(IOptions<ServiceConfig> config, IAmazonSQS sqsClient, IServiceScopeFactory scopeFactory)
+        public QueueServiceWorker(IOptions<QueueServiceConfig> config, IAmazonSQS sqsClient, IServiceScopeFactory scopeFactory)
         {
             this.config = config.Value;
             this.sqsClient = sqsClient;

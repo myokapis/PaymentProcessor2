@@ -2,6 +2,9 @@
 
 namespace Payment.Processor.Enums
 {
+    /// <summary>
+    /// An enumeration of transaction data sources.
+    /// </summary>
     public enum DataSource
     {
         Unknown,

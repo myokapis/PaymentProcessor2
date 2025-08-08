@@ -5,8 +5,22 @@ using Payment.Processor.Transaction.Model;
 
 namespace Payment.Processor.Builders
 {
+    /// <summary>
+    /// Builds an action context.
+    /// </summary>
     public class ActionContextBuilder : IBuilder<ActionContext>
     {
+        /// <summary>
+        /// Creates an instance of the action context builder.
+        /// </summary>
+        public ActionContextBuilder()
+        { }
+
+        /// <summary>
+        /// Builds an action context from a transaction model.
+        /// </summary>
+        /// <param name="transaction">The transaction model providing the data.</param>
+        /// <returns>An instance of an action context corresponding to the data in the transaction model.</returns>
         public ActionContext Build(ITransactionModel transaction)
         {
             var action = transaction.Details.Action;

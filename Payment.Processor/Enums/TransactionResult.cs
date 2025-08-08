@@ -2,6 +2,9 @@
 
 namespace Payment.Processor.Enums
 {
+    /// <summary>
+    /// An enumeration of transaction results.
+    /// </summary>
     public enum TransactionResult
     {
         [EnumMember(Value = "APPROVED")]
