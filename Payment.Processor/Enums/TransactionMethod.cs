@@ -2,6 +2,9 @@
 
 namespace Payment.Processor.Enums
 {
+    /// <summary>
+    /// An enumeration of credit card transaction methods.
+    /// </summary>
     public enum TransactionMethod
     {
         Unknown,

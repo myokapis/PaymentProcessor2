@@ -5,7 +5,7 @@ namespace TsysService
         public static void Main(string[] args)
         {
             var builder = Host.CreateApplicationBuilder(args);
-            builder.Services.AddHostedService<TsysWorker>();
+            builder.Services.AddHostedService<TsysTransactionWorker>();
 
             // TODO: take this from the configuration
             builder.Services.Configure<HostOptions>(o => o.ShutdownTimeout = TimeSpan.FromSeconds(60));

@@ -5,15 +5,29 @@ using Payment.Processor.Transaction.Model;
 
 namespace Payment.Processor.Builders
 {
+    /// <summary>
+    /// Builds an envelope.
+    /// </summary>
     public class EnvelopeBuilder<TEnvelope> : IBuilder<TEnvelope> where TEnvelope : class, IEnvelope, new()
     {
         private readonly IDatabaseService gatewayDataService;
 
+        // TODO: refactor the database injection to be consistent with how our services 
+        //       interact with the database using Dapper and SqlKata.
+        /// <summary>
+        /// Creates an instance of the envelope builder.
+        /// </summary>
+        /// <param name="gatewayDataService"></param>
         public EnvelopeBuilder(IDatabaseService gatewayDataService)
         { 
             this.gatewayDataService = gatewayDataService;
         }
 
+        /// <summary>
+        /// Builds an envelope from a transaction model.
+        /// </summary>
+        /// <param name="transaction">The transaction model providing the data.</param>
+        /// <returns>An instance of the envelope corresponding to the data in the transaction model.</returns>
         public TEnvelope Build(ITransactionModel transaction)
         {
             var transactionDetails = transaction.Details;

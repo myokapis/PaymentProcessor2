@@ -11,11 +11,11 @@ using TsysProcessor.Transaction.Model;
 
 namespace TsysService
 {
-    public class TsysWorker : ServiceWorker<TsysTransaction, ResultMessage>
+    public class TsysTransactionWorker : QueueServiceWorker<TsysTransaction, ResultMessage>
     {
         private int unstatusedRequests = 0;
 
-        public TsysWorker(IOptions<ServiceConfig> config, IAmazonSQS sqsClient, IServiceScopeFactory scopeFactory) : base(config, sqsClient, scopeFactory)
+        public TsysTransactionWorker(IOptions<QueueServiceConfig> config, IAmazonSQS sqsClient, IServiceScopeFactory scopeFactory) : base(config, sqsClient, scopeFactory)
         {}
 
         protected override IProcessingValues<TsysTransaction> GetProcessingValues(Message message, DateTime timestamp)
@@ -50,6 +50,7 @@ namespace TsysService
             {
                 var resultModel = new ResultMessage()
                 {
+                    Id = processingValues.Token,
                     Result = TransactionResult.ProcessingError
                 };
 

@@ -5,10 +5,21 @@ using Payment.Processor.Transaction.Model;
 
 namespace Payment.Processor.Builders
 {
+    /// <summary>
+    /// Builds a reader context.
+    /// </summary>
     public class ReaderContextBuilder : IBuilder<ReaderContext>
     {
+        /// <summary>
+        /// Creates an instance of the reader context builder.
+        /// </summary>
         public ReaderContextBuilder() { }
 
+        /// <summary>
+        /// Builds a reader context from a transaction model.
+        /// </summary>
+        /// <param name="transaction">The transaction model providing the data.</param>
+        /// <returns>An instance of a reader context corresponding to the data in the transaction model.</returns>
         public ReaderContext Build(ITransactionModel transaction)
         {
             var reader = transaction.Details.Reader;
@@ -17,11 +28,11 @@ namespace Payment.Processor.Builders
             return new ReaderContext()
             {
                 EmvCapable = EmvCapable(readerType),
-                EmvEnabled = reader.EmvCapable,
+                EmvEnabled = reader.EmvEnabled,
                 MsrCapable = MsrCapable(readerType),
-                MsrEnabled = reader.MsrCapable,
+                MsrEnabled = reader.MsrEnabled,
                 NfcCapable = NfcCapable(readerType),
-                NfcEnabled = reader.NfcCapable,
+                NfcEnabled = reader.NfcEnabled,
                 SerialNumber = reader.SerialNumber,
                 Type = readerType
             };

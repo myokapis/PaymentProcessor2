@@ -2,6 +2,9 @@
 
 namespace Payment.Processor.Enums
 {
+    /// <summary>
+    /// An enumeration of payment processing actions.
+    /// </summary>
     public enum ActionType
     {
         None,

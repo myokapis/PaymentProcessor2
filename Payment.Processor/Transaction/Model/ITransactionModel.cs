@@ -1,5 +1,8 @@
 ﻿namespace Payment.Processor.Transaction.Model
 {
+    /// <summary>
+    /// Describes the basic behavior of a transaction.
+    /// </summary>
     public interface ITransactionModel
     {
         Details Details { get; init; }
@@ -9,6 +12,10 @@
        IProcessorAttributes ProcessorAttributes { get; init; }
     }
 
+    /// <summary>
+    /// Describes the basic behavior of a transaction that uses a specific type of processor attributes.
+    /// </summary>
+    /// <typeparam name="TAttributes"></typeparam>
     public interface ITransactionModel<TAttributes> where TAttributes : IProcessorAttributes
     {
         TAttributes ProcessorAttributes { get; init; }

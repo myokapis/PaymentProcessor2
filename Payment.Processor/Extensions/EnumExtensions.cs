@@ -4,6 +4,13 @@ namespace Payment.Processor.Extensions
 {
     public static class EnumExtensions
     {
+        /// <summary>
+        /// Determines if the enum belongs to a set of enum values.
+        /// </summary>
+        /// <typeparam name="TEnum">The type of the enum being tested.</typeparam>
+        /// <param name="value">The enum value to test for set membership.</param>
+        /// <param name="valueSet">The set of enum values.</param>
+        /// <returns>True if the enum value belongs to the set and false otherwise.</returns>
         public static bool OneOf<TEnum>(this TEnum value, params TEnum[] valueSet) where TEnum : struct
         {
             return valueSet.Any(m => m.Equals(value));

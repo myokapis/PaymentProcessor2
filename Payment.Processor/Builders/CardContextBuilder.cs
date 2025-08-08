@@ -7,14 +7,27 @@ using Payment.Processor.Utilities;
 
 namespace Payment.Processor.Builders
 {
+    /// <summary>
+    /// Builds a card context.
+    /// </summary>
     public class CardContextBuilder : IBuilderAsync<CardContext>
     {
         protected IDecryptionService decryptionService;
+
+        /// <summary>
+        /// Creates an instance of the card context builder.
+        /// </summary>
+        /// <param name="decryptionService">A service for decrypting the card data.</param>
         public CardContextBuilder(IDecryptionService decryptionService)
         {
             this.decryptionService = decryptionService;
         }
 
+        /// <summary>
+        /// Asynchronously builds a card context from a transaction model.
+        /// </summary>
+        /// <param name="transaction">The transaction model providing the data.</param>
+        /// <returns>An instance of a card context corresponding to the data in the transaction model.</returns>
         public async Task<CardContext> BuildAsync(ITransactionModel transaction)
         {
             var encryptedCardData = transaction.Details.EncryptedCardData;

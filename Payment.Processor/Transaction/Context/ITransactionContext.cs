@@ -2,31 +2,53 @@
 
 namespace Payment.Processor.Transaction.Context
 {
-    // TODO: do we need separate plain and generic interfaces for this?
-    public interface ITransactionContext<TEnvelope, TAttributes> // : ITransactionContext
+    /// <summary>
+    /// Describes a transaction context.
+    /// </summary>
+    /// <typeparam name="TEnvelope">The type of the envelope used in the transaction.</typeparam>
+    /// <typeparam name="TAttributes">The type of the processor attributes used in the transaction.</typeparam>
+    public interface ITransactionContext<TEnvelope, TAttributes>
         where TEnvelope : IEnvelope
         where TAttributes : IProcessorAttributes
     {
-        CardContext CardContext { get; set; }
-        Details Details { get; set; }
-        //IEnvelope? Envelope { get; set; }
-        Merchant Merchant { get; set; }
-        //IProcessorAttributes ProcessorAttributes { get; set; }
-        ReaderContext ReaderContext { get; set; }
+        /// <summary>
+        /// The action context derived from the transaction.
+        /// </summary>
         ActionContext ActionContext { get; set; }
 
-        TEnvelope? Envelope { get; set; }
-        TAttributes ProcessorAttributes { get; set; }
-    }
+        /// <summary>
+        /// The card context derived from the transaction.
+        /// </summary>
+        CardContext CardContext { get; set; }
 
-    //public interface ITransactionContext
-    //{
-    //    Card Card { get; set; }
-    //    Details Details { get; set; }
-    //    //IEnvelope? Envelope { get; set; }
-    //    Merchant Merchant { get; set; }
-    //    //IProcessorAttributes ProcessorAttributes { get; set; }
-    //    Reader Reader { get; set; }
-    //    ActionContext ActionContext { get; set; }
-    //}
+        /// <summary>
+        /// The card on file context derived from the transaction.
+        /// </summary>
+        CardOnFileContext CardOnFileContext { get; set; }
+
+        /// <summary>
+        /// The transaction details.
+        /// </summary>
+        Details Details { get; set; }
+
+        /// <summary>
+        /// The envelope associated with the transaction.
+        /// </summary>
+        TEnvelope? Envelope { get; set; }
+
+        /// <summary>
+        /// A model describing the merchant participating in the transaction.
+        /// </summary>
+        Merchant Merchant { get; set; }
+
+        /// <summary>
+        /// The merchant's processor settings and attributes.
+        /// </summary>
+        TAttributes ProcessorAttributes { get; set; }
+
+        /// <summary>
+        /// The reader context derived from the transaction.
+        /// </summary>
+        ReaderContext ReaderContext { get; set; }
+    }
 }
