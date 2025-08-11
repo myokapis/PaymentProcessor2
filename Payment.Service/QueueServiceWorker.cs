@@ -13,6 +13,11 @@ using Serilog;
 // TODO: add sanitization on logs (see Isaac's project)
 namespace Payment.Service
 {
+    /// <summary>
+    /// An abstract class for creating long-running background services for payment processing.
+    /// </summary>
+    /// <typeparam name="TTransaction">The type of the transaction model to be processed.</typeparam>
+    /// <typeparam name="TResult">The type of the transaction result produced by the processing service.</typeparam>
     public abstract class QueueServiceWorker<TTransaction, TResult> : BackgroundService
         where TTransaction : class
         where TResult : class
@@ -25,6 +30,12 @@ namespace Payment.Service
         protected IServiceScopeFactory scopeFactory;
         protected uint taskId = 0;
 
+        /// <summary>
+        /// Creates an instance of the queue service worker.
+        /// </summary>
+        /// <param name="config">The configuration for the service.</param>
+        /// <param name="sqsClient">An AWS SQS client.</param>
+        /// <param name="scopeFactory">A factory for creating dependency injection scopes.</param>
         public QueueServiceWorker(IOptions<QueueServiceConfig> config, IAmazonSQS sqsClient, IServiceScopeFactory scopeFactory)
         {
             this.config = config.Value;
@@ -32,17 +43,32 @@ namespace Payment.Service
             this.scopeFactory = scopeFactory;
         }
 
-        protected virtual async Task DeleteFromQueue(string receiptHandle)
+        /// <summary>
+        /// Deletes a message from the transaction queue.
+        /// </summary>
+        /// <param name="receiptHandle">The receipt handle for the message to be deleted.</param>
+        /// <returns>A task with no result.</returns>
+        protected virtual async Task DeleteTransactionFromQueue(string receiptHandle)
         {
             await sqsClient.DeleteMessageAsync(config.TransactionQueueUrl, receiptHandle);
         }
 
+        /// <summary>
+        /// Enqueues the transaction processing result in the transaction result SQS queue.
+        /// </summary>
+        /// <param name="result">The transaction result message to enqueue.</param>
+        /// <returns>A task with no result.</returns>
         protected virtual async Task EnqueueResult(TResult result)
         {
             var resultMessage = JsonSerializer.Serialize(result);
             await sqsClient.SendMessageAsync(config.ResultQueueUrl, resultMessage);
         }
 
+        /// <summary>
+        /// The entry point for running the queue worker background service.
+        /// </summary>
+        /// <param name="stoppingToken">A cancellation token for stopping the background service.</param>
+        /// <returns>A task with no result.</returns>
         protected override async Task ExecuteAsync(CancellationToken stoppingToken)
         {
             var messageRequest = new ReceiveMessageRequest()
@@ -73,17 +99,43 @@ namespace Payment.Service
             await Task.CompletedTask;
         }
 
+        /// <summary>
+        /// Creates an instance of processing values from a transaction request message.
+        /// </summary>
+        /// <param name="message">The transaction request message to be processed.</param>
+        /// <param name="timestamp">The time at which the message was dequeued.</param>
+        /// <returns>Processing values for a specific transaction model.</returns>
         protected abstract IProcessingValues<TTransaction> GetProcessingValues(Message message, DateTime timestamp);
 
+        /// <summary>
+        /// Creates an instance of a transaction runner that processes a specific transaction model and returns a specific type of transaction result.
+        /// </summary>
+        /// <param name="scope">An instance of a dependency injection scope.</param>
+        /// <returns>A workflow runner for a specific transaction model and transaction result.</returns>
         protected abstract IWorkflowRunner<IPaymentWorkflowContext<TTransaction, TResult>> GetTransactionRunner(IServiceScope scope);
 
+        /// <summary>
+        /// Implements logic for handling messages containing invalid transactions.
+        /// </summary>
+        /// <param name="processingValues">The processing values for a transaction message.</param>
+        /// <returns>A task with no result.</returns>
         protected abstract Task HandleInvalidMessage(IProcessingValues<TTransaction> processingValues);
 
+        /// <summary>
+        /// Increments the task counter and returns the result.
+        /// </summary>
+        /// <returns>A unique unsigned integer representing the identifier of the next task to be created.</returns>
         protected virtual uint NextTaskId()
         {
             return taskId++;
         }
 
+        /// <summary>
+        /// Validates a set of transaction messages and starts background tasks to process each message.
+        /// </summary>
+        /// <param name="messages">The collection of messages to validate and process.</param>
+        /// <param name="stoppingToken">A cancellation token for stopping the background tasks.</param>
+        /// <returns>A task with no result.</returns>
         protected virtual async Task ProcessMessages(List<Message> messages, CancellationToken stoppingToken)
         {
             var timestamp = DateTime.UtcNow;
@@ -103,10 +155,19 @@ namespace Payment.Service
                     _ = Task.Factory.StartNew(() => ProcessTransaction(transactionRunner, processingValues), stoppingToken);
                 }
 
-                await DeleteFromQueue(processingValues.Message.ReceiptHandle);
+                // TODO: this is fine for regular transactions, but it won't do for timeout reversals
+                //       since we will need to leave the transaction enqueued until it succeeds or 
+                //       reaches its max attempts.
+                await DeleteTransactionFromQueue(processingValues.Message.ReceiptHandle);
             }
         }
 
+        /// <summary>
+        /// Processses a transaction and enqueues the result message.
+        /// </summary>
+        /// <param name="transactionRunner">An instance of a workflow runner for processing the transaction.</param>
+        /// <param name="processingValues">The processing values derived from the transaction message to be processed.</param>
+        /// <returns>A task with no result.</returns>
         protected virtual async Task ProcessTransaction(IWorkflowRunner<IPaymentWorkflowContext<TTransaction, TResult>> transactionRunner, IProcessingValues<TTransaction> processingValues)
         {
             try
@@ -119,6 +180,9 @@ namespace Payment.Service
                 if (resultMessage == null)
                     Log.Error("No result was returned for {0}", processingValues.Token);
                 else
+                    // TODO: enhance the payment context to include a reversal message
+                    //       enqueue the reversal message here (in a different queue) if one exists
+                    //       will need to add queues to the config for timeout reversal and auto void
                     await EnqueueResult(resultMessage);
 
                 runningTasks.TryRemove(processingValues.TaskId, out _);
@@ -131,17 +195,33 @@ namespace Payment.Service
             }
         }
 
+        // TODO: should this be an async method?
+        /// <summary>
+        /// A hook method for sending a health check message to a logger or monitoring service.
+        /// Inheriting classes can include other functionality such as logging transaction counts
+        /// or other useful information.
+        /// </summary>
         protected abstract void SendHealthCheck();
 
-        protected virtual bool ValidateTransaction(TTransaction? tsysTransaction)
+        /// <summary>
+        /// Validates a transaction.
+        /// </summary>
+        /// <param name="transaction">The transaction to be validated.</param>
+        /// <returns>True if the transaction is valid.</returns>
+        protected virtual bool ValidateTransaction(TTransaction? transaction)
         {
-            if (tsysTransaction == null) return false;
+            if (transaction == null) return false;
 
-            var validationContext = new ValidationContext(tsysTransaction);
+            var validationContext = new ValidationContext(transaction);
             var validationResults = new List<ValidationResult>();
-            return Validator.TryValidateObject(tsysTransaction, validationContext, validationResults, true);
+            return Validator.TryValidateObject(transaction, validationContext, validationResults, true);
         }
 
+        /// <summary>
+        /// Checks the number of unexpired background tasks against the maximum number of
+        /// background tasks allowed.
+        /// </summary>
+        /// <returns>True if the number of unexpired background tasks is within the allowed limit.</returns>
         protected virtual bool WithinRateLimit()
         {
             var runningTaskCount = runningTasks.Count;

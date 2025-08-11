@@ -11,13 +11,28 @@ using TsysProcessor.Transaction.Model;
 
 namespace TsysService
 {
+    /// <summary>
+    /// Describes a TSYS variant of the QueueServiceWorker.
+    /// </summary>
     public class TsysTransactionWorker : QueueServiceWorker<TsysTransaction, ResultMessage>
     {
         private int unstatusedRequests = 0;
 
+        /// <summary>
+        /// Creates a TsysTransactionWorker.
+        /// </summary>
+        /// <param name="config">The queue service configuration.</param>
+        /// <param name="sqsClient">An AWS SQS client.</param>
+        /// <param name="scopeFactory">A factory for providing new dependency injection scopes.</param>
         public TsysTransactionWorker(IOptions<QueueServiceConfig> config, IAmazonSQS sqsClient, IServiceScopeFactory scopeFactory) : base(config, sqsClient, scopeFactory)
         {}
 
+        /// <summary>
+        /// Creates an instance of TSYS-specific processing values.
+        /// </summary>
+        /// <param name="message">The transaction request message to be processed.</param>
+        /// <param name="timestamp">The time at which the message was dequeued.</param>
+        /// <returns>Processing values for a specific transaction model.</returns>
         protected override IProcessingValues<TsysTransaction> GetProcessingValues(Message message, DateTime timestamp)
         {
             var tsysTransaction = JsonSerializer.Deserialize<TsysTransaction>(message.Body);
@@ -35,11 +50,24 @@ namespace TsysService
             };
         }
 
+        /// <summary>
+        /// Creates an instance of a transaction runner that processes a TSYS-specific transaction model and returns a transaction result.
+        /// </summary>
+        /// <param name="scope">An instance of a dependency injection scope.</param>
+        /// <returns>A workflow runner for a TSYS-specific transaction model and transaction result.</returns>
         protected override IWorkflowRunner<IPaymentWorkflowContext<TsysTransaction, ResultMessage>> GetTransactionRunner(IServiceScope scope)
         {
             return scope.ServiceProvider.GetRequiredService<IWorkflowRunner<IPaymentWorkflowContext<TsysTransaction, ResultMessage>>>();
         }
 
+        /// <summary>
+        /// Handles messages containing invalid transactions.
+        /// </summary>
+        /// <param name="processingValues">The processing values for a transaction message.</param>
+        /// <returns>A task with no result.</returns>
+        /// <remarks>When no request token is available, a counter is incremented for logging.
+        /// Otherwise, a processing error result is enqueued to ensure that Gateway receives a status
+        /// for the transaction.</remarks>
         protected override async Task HandleInvalidMessage(IProcessingValues<TsysTransaction> processingValues)
         {
             if (processingValues.Token == null)
@@ -58,6 +86,10 @@ namespace TsysService
             }
         }
 
+        // TODO: do Splunk or NewRelic need to be incorporated here?
+        /// <summary>
+        /// Logs a health check if the current health check interval has expired.
+        /// </summary>
         protected override void SendHealthCheck()
         {
             if (nextHealthCheck > DateTime.UtcNow) return;
@@ -68,7 +100,7 @@ namespace TsysService
             rateLimitEvents = 0;
             unstatusedRequests = 0;
 
-            nextHealthCheck = DateTime.UtcNow.AddMinutes(config.HealthCheckIntervalMinutes);
+            nextHealthCheck = nextHealthCheck.AddMinutes(config.HealthCheckIntervalMinutes);
         }
     }
 }
