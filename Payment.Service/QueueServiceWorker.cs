@@ -22,7 +22,7 @@ namespace Payment.Service
         where TTransaction : class
         where TResult : class
     {
-        protected QueueServiceConfig config;
+        protected IQueueServiceConfig config;
         protected DateTime nextHealthCheck = DateTime.UtcNow;
         protected int rateLimitEvents = 0;
         protected ConcurrentDictionary<uint, DateTime> runningTasks = new();
@@ -36,7 +36,7 @@ namespace Payment.Service
         /// <param name="config">The configuration for the service.</param>
         /// <param name="sqsClient">An AWS SQS client.</param>
         /// <param name="scopeFactory">A factory for creating dependency injection scopes.</param>
-        public QueueServiceWorker(IOptions<QueueServiceConfig> config, IAmazonSQS sqsClient, IServiceScopeFactory scopeFactory)
+        public QueueServiceWorker(IOptions<IQueueServiceConfig> config, IAmazonSQS sqsClient, IServiceScopeFactory scopeFactory)
         {
             this.config = config.Value;
             this.sqsClient = sqsClient;
@@ -122,6 +122,16 @@ namespace Payment.Service
         protected abstract Task HandleInvalidMessage(IProcessingValues<TTransaction> processingValues);
 
         /// <summary>
+        /// Handles any post processing work to be done.
+        /// </summary>
+        /// <param name="workflowContext">The workflow context in which the process is running.</param>
+        /// <param name="processingValues">The processing values derived from the transaction message to be processed.</param>
+        /// <returns>A task with no result.</returns>
+        /// <remarks>This method is intended to be overridden when additional actions such as enqueuing
+        /// timeout reversal or auto void jobs needs to be done.</remarks>
+        protected abstract Task PostProcessing(IPaymentWorkflowContext<TTransaction, TResult> workflowContext, IProcessingValues<TTransaction> processingValues);
+
+        /// <summary>
         /// Increments the task counter and returns the result.
         /// </summary>
         /// <returns>A unique unsigned integer representing the identifier of the next task to be created.</returns>
@@ -180,10 +190,10 @@ namespace Payment.Service
                 if (resultMessage == null)
                     Log.Error("No result was returned for {0}", processingValues.Token);
                 else
-                    // TODO: enhance the payment context to include a reversal message
-                    //       enqueue the reversal message here (in a different queue) if one exists
-                    //       will need to add queues to the config for timeout reversal and auto void
+                {
                     await EnqueueResult(resultMessage);
+                    await PostProcessing(transactionRunner.WorkflowContext, processingValues);
+                }
 
                 runningTasks.TryRemove(processingValues.TaskId, out _);
             }

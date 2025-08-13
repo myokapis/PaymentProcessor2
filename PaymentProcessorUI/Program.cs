@@ -62,6 +62,7 @@ namespace PaymentProcessorUI
             services.AddScoped<TsysWorkflowContext>();
             services.AddScoped<IMessageSerializer, StringMessageSerializer>();
             services.AddScoped<IStringMessageSerializer, StringMessageSerializer>();
+            services.AddScoped<IJsonMessageSerializer, JsonMessageSerializer>();
             services.AddScoped<IBuilder<ActionContext>, ActionContextBuilder>();
             services.AddScoped<IBuilderAsync<CardContext>, CardContextBuilder>();
             services.AddScoped<IBuilder<CardOnFileContext>, CardOnFileContextBuilder>();

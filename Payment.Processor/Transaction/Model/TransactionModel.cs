@@ -1,4 +1,5 @@
 ﻿using System.Text.Json.Serialization;
+using Payment.Processor.Transaction.Context;
 
 namespace Payment.Processor.Transaction.Model
 {
@@ -6,7 +7,8 @@ namespace Payment.Processor.Transaction.Model
     /// Describes a credit card payment transaction.
     /// </summary>
     /// <typeparam name="TAttributes"></typeparam>
-    public class TransactionModel<TAttributes> : ITransactionModel, ITransactionModel<TAttributes>
+    public class TransactionModel<TEnvelope, TAttributes> : ITransactionModel, ITransactionModel<TEnvelope, TAttributes>
+        where TEnvelope : IEnvelope
         where TAttributes : IProcessorAttributes
     {
         /// <summary>
@@ -14,6 +16,11 @@ namespace Payment.Processor.Transaction.Model
         /// </summary>
         [JsonPropertyName("transaction_details")]
         public required Details Details { get; init; }
+
+        /// <summary>
+        /// An object containing details about a prior related transaction.
+        /// </summary>
+        public TEnvelope? Envelope { get; init; }
 
         /// <summary>
         /// An object representing the merchant associated with the transaction.
