@@ -7,7 +7,7 @@ namespace Tests.Payment.Processor.TestHelpers
     {
         public static ITransactionModel BuildTransaction(Details details, Merchant merchant)
         {
-            return new TransactionModel<TestProcessorAttributes>()
+            return new TransactionModel<TestEnvelope, TestProcessorAttributes>()
             {
                 Details = details, // ?? BuildDetails(DetailsAttributes, metadata, reader),
                 Merchant = merchant, // ?? BuildMerchant(MerchantAttributes),
@@ -17,7 +17,7 @@ namespace Tests.Payment.Processor.TestHelpers
 
         public static ITransactionModel BuildTransactionWithDefaults(Details? details = null, Merchant? merchant = null)
         {
-            return new TransactionModel<TestProcessorAttributes>()
+            return new TransactionModel<TestEnvelope, TestProcessorAttributes>()
             {
                 Details = details ?? DefaultDetails,
                 Merchant = merchant ?? DefaultMerchant,

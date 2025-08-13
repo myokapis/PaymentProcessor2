@@ -8,6 +8,7 @@ using Payment.Service;
 using Payment.Workflow.Interfaces;
 using Serilog;
 using TsysProcessor.Transaction.Model;
+using TsysProcessor.Workflow.Context;
 
 namespace TsysService
 {
@@ -24,7 +25,7 @@ namespace TsysService
         /// <param name="config">The queue service configuration.</param>
         /// <param name="sqsClient">An AWS SQS client.</param>
         /// <param name="scopeFactory">A factory for providing new dependency injection scopes.</param>
-        public TsysTransactionWorker(IOptions<QueueServiceConfig> config, IAmazonSQS sqsClient, IServiceScopeFactory scopeFactory) : base(config, sqsClient, scopeFactory)
+        public TsysTransactionWorker(IOptions<IQueueServiceConfig> config, IAmazonSQS sqsClient, IServiceScopeFactory scopeFactory) : base(config, sqsClient, scopeFactory)
         {}
 
         /// <summary>
@@ -86,6 +87,26 @@ namespace TsysService
             }
         }
 
+        /// <summary>
+        /// Enqueues auto void and timeout reversal job payloads
+        /// </summary>
+        /// <param name="workflowContext"></param>
+        /// <param name="processingValues"></param>
+        /// <returns></returns>
+        /// <exception cref="NotImplementedException"></exception>
+        protected async override Task PostProcessing(IPaymentWorkflowContext<TsysTransaction, ResultMessage> workflowContext, IProcessingValues<TsysTransaction> processingValues)
+        {
+            var tsysConfig = (TsysQueueServiceConfig)config;
+            var tsysContext = (TsysWorkflowContext)workflowContext;
+            var responseContext = tsysContext.ResponseContext;
+            if (responseContext == null) return;
+
+            if (responseContext.RequiresVoiding)
+                await EnqueueVoid(responseContext.AutoVoidModel, tsysConfig.AutoVoidQueueUrl, processingValues.Token);
+            else if (responseContext.RequiresTimeoutReversal)
+                await EnqueueVoid(responseContext.TimeoutReversalModel, tsysConfig.TimeoutReversalQueueUrl, processingValues.Token);
+        }
+
         // TODO: do Splunk or NewRelic need to be incorporated here?
         /// <summary>
         /// Logs a health check if the current health check interval has expired.
@@ -101,6 +122,19 @@ namespace TsysService
             unstatusedRequests = 0;
 
             nextHealthCheck = nextHealthCheck.AddMinutes(config.HealthCheckIntervalMinutes);
+        }
+
+        // TODO: define a class for the model instead of object
+        private async Task EnqueueVoid(object? voidModel, string queueUrl, string? token)
+        {
+            if (voidModel == null)
+            {
+                Log.Warning("Reversal payload was missing for transaction, {0}", token);
+                return;
+            }
+
+            var voidPayload = JsonSerializer.Serialize(voidModel);
+            await sqsClient.SendMessageAsync(queueUrl, voidPayload);
         }
     }
 }
