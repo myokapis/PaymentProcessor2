@@ -5,6 +5,7 @@ using Payment.Processor.Transaction.Model;
 
 namespace Payment.Processor.Builders
 {
+    // TODO: add logic to use the envelope from the transaction for auto-voids and timeout reversals.
     /// <summary>
     /// Builds an envelope.
     /// </summary>

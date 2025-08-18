@@ -13,7 +13,7 @@ namespace Payment.Processor.Transaction.Context
         public required ActionType ActionType { get; init; }
 
         /// <summary>
-        /// True is the action is an authorization.
+        /// True if the action is an authorization.
         /// </summary>
         public bool AuthAction { get; init; }
 

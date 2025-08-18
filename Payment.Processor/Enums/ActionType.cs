@@ -15,7 +15,6 @@ namespace Payment.Processor.Enums
         [EnumMember(Value = "Balance_Inquiry")]
         BalanceInquiry,
 
-        //[EnumMember(Value = "Capture")]
         Capture,
 
         [EnumMember(Value = "Card_Authentication")]
@@ -27,16 +26,13 @@ namespace Payment.Processor.Enums
         [EnumMember(Value = "Pre_Auth")]
         PreAuth,
 
-        //[EnumMember(Value = "Return")]
         Return,
 
-        //[EnumMember(Value = "Sale")]
         Sale,
 
         [EnumMember(Value = "Timeout_Reversal")]
         TimeoutReversal,
 
-        //[EnumMember(Value = "Void")]
         Void
     }
 }

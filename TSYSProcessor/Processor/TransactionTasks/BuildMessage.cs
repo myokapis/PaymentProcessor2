@@ -14,7 +14,7 @@ namespace TsysProcessor.Processor.Transaction
         protected readonly MapperFactory<TsysTransactionContext> mapperFactory;
 
         /// <summary>
-        /// Creates and instance of the task.
+        /// Creates an instance of the task.
         /// </summary>
         /// <param name="workflowContext">The workflow context in which the task runs.</param>
         /// <param name="mapperFactory">A factory for creating mappers.</param>
@@ -36,7 +36,10 @@ namespace TsysProcessor.Processor.Transaction
 
         private Type GetMapperType(TsysTransactionContext transactionContext)
         {
-            // TODO: add logic to select the mapper type based on the transaction details
+            // TODO: add logic to select the mapper type based on the transaction details.
+            //       if it turns out that we only use one message class for all requests,
+            //       then this code can go away and we can inject the mapper. we would also
+            //       want to rename the mapper from SaleMapper to something like RequestMapper.
             return typeof(SaleMapper);
         }
     }

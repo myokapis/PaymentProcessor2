@@ -1,5 +1,4 @@
-﻿using System.Transactions;
-using Payment.Processor.Transaction.Result;
+﻿using Payment.Processor.Transaction.Result;
 using TsysProcessor.Workflow.Context;
 
 namespace TsysProcessor.Processor.TransactionTasks

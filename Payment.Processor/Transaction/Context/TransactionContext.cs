@@ -2,6 +2,8 @@
 
 namespace Payment.Processor.Transaction.Context
 {
+    // TODO: should the properties use init instead of set?
+
     /// <summary>
     /// Describes a transaction context.
     /// </summary>
@@ -11,25 +13,26 @@ namespace Payment.Processor.Transaction.Context
         where TEnvelope : IEnvelope
         where TAttributes : IProcessorAttributes
     {
+#pragma warning disable CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider adding the 'required' modifier or declaring as nullable.
         /// <summary>
         /// The action context derived from the transaction.
         /// </summary>
-        public required ActionContext ActionContext { get; set; }
+        public ActionContext ActionContext { get; set; }
 
         /// <summary>
         /// The card context derived from the transaction.
         /// </summary>
-        public required CardContext CardContext { get; set; }
+        public CardContext CardContext { get; set; }
 
         /// <summary>
         /// The card on file context derived from the transaction.
         /// </summary>
-        public required CardOnFileContext CardOnFileContext { get; set; }
+        public CardOnFileContext CardOnFileContext { get; set; }
 
         /// <summary>
         /// The transaction details.
         /// </summary>
-        public required Details Details { get; set; }
+        public Details Details { get; set; }
 
         /// <summary>
         /// The envelope associated with the transaction.
@@ -39,16 +42,17 @@ namespace Payment.Processor.Transaction.Context
         /// <summary>
         /// A model describing the merchant participating in the transaction.
         /// </summary>
-        public required Merchant Merchant { get; set; }
+        public Merchant Merchant { get; set; }
 
         /// <summary>
         /// The merchant's processor settings and attributes.
         /// </summary>
-        public required TAttributes ProcessorAttributes { get; set; }
+        public TAttributes ProcessorAttributes { get; set; }
 
         /// <summary>
         /// The reader context derived from the transaction.
         /// </summary>
-        public required ReaderContext ReaderContext { get; set; }
+        public ReaderContext ReaderContext { get; set; }
+#pragma warning restore CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider adding the 'required' modifier or declaring as nullable.
     }
 }

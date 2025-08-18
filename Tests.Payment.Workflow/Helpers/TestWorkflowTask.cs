@@ -16,11 +16,5 @@ namespace Tests.Payment.Workflow.Helpers
             if (throwException) throw new InvalidOperationException();
             return true;
         }
-
-        //protected override bool RunErrored()
-        //{
-        //    if (throwException) throw new InvalidOperationException();
-        //    return false;
-        //}
     }
 }

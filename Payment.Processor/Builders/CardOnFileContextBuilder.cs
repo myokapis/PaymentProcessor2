@@ -8,7 +8,7 @@ namespace Payment.Processor.Builders
     /// <summary>
     /// Builds a card on file context.
     /// </summary>
-    public class CardOnFileContextBuilder : IBuilder<CardOnFileContext>
+    public class CardOnFileContextBuilder : ICardOnFileContextBuilder
     {
         /// <summary>
         /// Creates an instance of the card on file context builder.

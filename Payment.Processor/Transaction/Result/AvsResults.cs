@@ -1,7 +1,7 @@
 ﻿namespace Payment.Processor.Transaction.Result
 {
     // TODO: make sure this serializes correctly
-    // TODO: see if we want to use enums of stick with the string characters.
+    // TODO: see if we want to use enums or stick with the string characters.
     
     /// <summary>
     /// Describes the results of the processor's address and zip code matching

@@ -23,17 +23,19 @@ namespace Payment.Processor.Builders
         public ReaderContext Build(ITransactionModel transaction)
         {
             var reader = transaction.Details.Reader;
-            var readerType = ReaderType.UNKNOWN.Parse(reader.Type);
+            var readerType = ReaderType.UNKNOWN.Parse(reader?.Type);
+            // TODO: decide if this default should be universal or if it belongs at the processor level
+            var serialNumber = string.IsNullOrWhiteSpace(reader?.SerialNumber) ? "8675309" : reader.SerialNumber;
 
             return new ReaderContext()
             {
                 EmvCapable = EmvCapable(readerType),
-                EmvEnabled = reader.EmvEnabled,
+                EmvEnabled = reader?.EmvEnabled ?? false,
                 MsrCapable = MsrCapable(readerType),
-                MsrEnabled = reader.MsrEnabled,
+                MsrEnabled = reader?.MsrEnabled ?? false,
                 NfcCapable = NfcCapable(readerType),
-                NfcEnabled = reader.NfcEnabled,
-                SerialNumber = reader.SerialNumber,
+                NfcEnabled = reader?.NfcEnabled ?? false,
+                SerialNumber = serialNumber,
                 Type = readerType
             };
         }

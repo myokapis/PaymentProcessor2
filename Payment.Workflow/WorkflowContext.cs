@@ -9,6 +9,9 @@ namespace Payment.Workflow
     public abstract class WorkflowContext : IWorkflowContext
 
     {
+        /// <summary>
+        /// Default constructor for a workflow context.
+        /// </summary>
         public WorkflowContext()
         { }
 

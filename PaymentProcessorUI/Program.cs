@@ -12,6 +12,7 @@ using Payment.Workflow.Interfaces;
 using TsysProcessor.Extensions;
 using TsysProcessor.Processor;
 using TsysProcessor.Transaction.Context;
+using TsysProcessor.Transaction.Model;
 using TsysProcessor.Workflow.Context;
 
 namespace PaymentProcessorUI
@@ -64,13 +65,14 @@ namespace PaymentProcessorUI
             services.AddScoped<IStringMessageSerializer, StringMessageSerializer>();
             services.AddScoped<IJsonMessageSerializer, JsonMessageSerializer>();
             services.AddScoped<IBuilder<ActionContext>, ActionContextBuilder>();
-            services.AddScoped<IBuilderAsync<CardContext>, CardContextBuilder>();
-            services.AddScoped<IBuilder<CardOnFileContext>, CardOnFileContextBuilder>();
+            services.AddScoped<ICardContextBuilder, CardContextBuilder>();
+            services.AddScoped<ICardOnFileContextBuilder, CardOnFileContextBuilder>();
             services.AddScoped<IBuilder<TsysEnvelope>, EnvelopeBuilder<TsysEnvelope>>();
             services.AddScoped<IBuilder<ReaderContext>, ReaderContextBuilder>();
             services.AddScoped<IDatabaseService, DatabaseService>();
             services.AddScoped<IDecryptionService, DecryptionService>();
             services.AddScoped<IFormatter, Formatter>();
+            services.AddScoped<ITransactionContextBuilder<TsysEnvelope, TsysProcessorAttributes>, TsysTransactionContextBuilder>();
 
             // TODO: set the region
             //var region = Amazon.RegionEndpoint.GetBySystemName("us-east-1");
