@@ -2,6 +2,9 @@
 {
     public class ResponseContext<TTransaction> : IResponseContext<TTransaction>
     {
+        /// <summary>
+        /// A transaction model representing an auto-void request.
+        /// </summary>
         public TTransaction? AutoVoidModel { get; init; }
 
         /// <summary>
@@ -16,7 +19,9 @@
         /// </summary>
         public bool RequiresTimeoutReversal { get; init; }
 
-        
+        /// <summary>
+        /// A transaction model representing a timeout reversal request.
+        /// </summary>
         public TTransaction? TimeoutReversalModel { get; init; }
     }
 }

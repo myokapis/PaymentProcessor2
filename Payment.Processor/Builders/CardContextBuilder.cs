@@ -10,7 +10,7 @@ namespace Payment.Processor.Builders
     /// <summary>
     /// Builds a card context.
     /// </summary>
-    public class CardContextBuilder : IBuilderAsync<CardContext>
+    public class CardContextBuilder : ICardContextBuilder
     {
         protected IDecryptionService decryptionService;
 

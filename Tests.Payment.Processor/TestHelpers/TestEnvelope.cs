@@ -4,6 +4,6 @@ namespace Tests.Payment.Processor.TestHelpers
 {
     public class TestEnvelope : IEnvelope
     {
-        public bool Empty { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+        public bool Empty { get; set; }
     }
 }

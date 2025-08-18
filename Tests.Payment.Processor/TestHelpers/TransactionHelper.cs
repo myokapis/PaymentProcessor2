@@ -25,21 +25,7 @@ namespace Tests.Payment.Processor.TestHelpers
             };
         }
 
-        //public static ITransactionModel BuildTransactionWithDefaults(
-        //    Details? details = null,
-        //    Merchant merchant = null,
-        //    Metadata? metadata = null,
-        //    Reader? reader = null)
-        //{
-        //    return new TransactionModel<TestProcessorAttributes>()
-        //    {
-        //        Details = details ?? BuildDetails(DetailsAttributes, metadata, reader),
-        //        Merchant = merchant, // ?? BuildMerchant(MerchantAttributes),
-        //        ProcessorAttributes = new TestProcessorAttributes()
-        //    };
-        //}
-
-        public static Details BuildDetails(Dictionary<string, string> detailsAttributes, Metadata? metadata, Reader reader)
+        public static Details BuildDetails(Dictionary<string, string> detailsAttributes, Metadata? metadata, Reader? reader)
         {
             return new Details()
             {
@@ -86,6 +72,9 @@ namespace Tests.Payment.Processor.TestHelpers
         {
             return new Reader()
             {
+                EmvEnabled = false.Parse(readerAttributes["EmvEnabled"]),
+                MsrEnabled = false.Parse(readerAttributes["MsrEnabled"]),
+                NfcEnabled = false.Parse(readerAttributes["NfcEnabled"]),
                 SerialNumber = readerAttributes["SerialNumber"],
                 Type = readerAttributes["Type"]
             };
@@ -125,6 +114,9 @@ namespace Tests.Payment.Processor.TestHelpers
 
         public static Dictionary<string, string> ReaderAttributes => new Dictionary<string, string>()
         {
+            { "EmvEnabled", "true" },
+            { "MsrEnabled", "true" },
+            { "NfcEnabled", "true" },
             { "SerialNumber", "8675309" },
             { "Type", "B350" }
         };

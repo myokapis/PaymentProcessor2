@@ -5,7 +5,7 @@ namespace Payment.Processor.Transaction.Context
     /// <summary>
     /// Describes a card and provides useful derived attributes.
     /// </summary>
-    interface ICardContext : IContext
+    public interface ICardContext : IContext
     {
         /// <summary>
         /// The address associated with the card.

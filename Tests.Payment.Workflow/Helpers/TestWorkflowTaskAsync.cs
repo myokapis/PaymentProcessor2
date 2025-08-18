@@ -16,11 +16,5 @@ namespace Tests.Payment.Workflow.Helpers
             if (throwException) throw new InvalidOperationException();
             return await Task.FromResult(true);
         }
-
-        //protected override async Task<bool> RunErroredAsync()
-        //{
-        //    if (throwException) throw new InvalidOperationException();
-        //    return await Task.FromResult(false);
-        //}
     }
 }
