@@ -1,5 +1,5 @@
 ﻿using System.Text.Json.Serialization;
-using Payment.Processor.Transaction.Model;
+using Payment.Processor.Transaction.Model.V1;
 
 namespace TsysProcessor.Transaction.Model
 {

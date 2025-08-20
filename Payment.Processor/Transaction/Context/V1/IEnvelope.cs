@@ -1,4 +1,4 @@
-﻿namespace Payment.Processor.Transaction.Context
+﻿namespace Payment.Processor.Transaction.Context.V1
 {
     /// <summary>
     /// Describes the basic atrributes of an envelope.

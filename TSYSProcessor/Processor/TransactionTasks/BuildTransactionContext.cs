@@ -1,4 +1,4 @@
-﻿using Payment.Processor.Builders;
+﻿using Payment.Processor.Builders.V1;
 using TsysProcessor.Workflow.Context;
 using TsysProcessor.Transaction.Context;
 using TsysProcessor.Transaction.Model;

@@ -1,9 +1,9 @@
 ﻿using Payment.Processor.Enums;
 using Payment.Processor.Extensions;
-using Payment.Processor.Transaction.Context;
-using Payment.Processor.Transaction.Model;
+using Payment.Processor.Transaction.Context.V1;
+using Payment.Processor.Transaction.Model.V1;
 
-namespace Payment.Processor.Builders
+namespace Payment.Processor.Builders.V1
 {
     /// <summary>
     /// Builds a card on file context.

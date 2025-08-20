@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.Text.Json.Serialization;
 
-namespace Payment.Processor.Transaction.Model
+namespace Payment.Processor.Transaction.Model.V1
 {
     // TODO: add validations particularly on the token
 

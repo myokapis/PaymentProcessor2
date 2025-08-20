@@ -1,9 +1,9 @@
 ﻿using Payment.Processor.Enums;
 using Payment.Processor.Services;
-using Payment.Processor.Transaction.Context;
-using Payment.Processor.Transaction.Model;
+using Payment.Processor.Transaction.Context.V1;
+using Payment.Processor.Transaction.Model.V1;
 
-namespace Payment.Processor.Builders
+namespace Payment.Processor.Builders.V1
 {
     // TODO: add logic to use the envelope from the transaction for auto-voids and timeout reversals.
     /// <summary>

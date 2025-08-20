@@ -1,7 +1,7 @@
-﻿using Payment.Processor.Transaction.Context;
-using Payment.Processor.Transaction.Model;
+﻿using Payment.Processor.Transaction.Context.V1;
+using Payment.Processor.Transaction.Model.V1;
 
-namespace Payment.Processor.Builders
+namespace Payment.Processor.Builders.V1
 {
     /// <summary>
     /// Describes the basic functionality of a transaction context builder.

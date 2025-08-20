@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.Text.Json.Serialization;
 
-namespace Payment.Processor.Transaction.Model
+namespace Payment.Processor.Transaction.Model.V1
 {
     // TODO: see which of these properties are actually needed and remove the others
     //       Also not all of the currently required are actually required.

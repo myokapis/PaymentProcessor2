@@ -1,6 +1,6 @@
-﻿using Payment.Processor.Transaction.Context;
+﻿using Payment.Processor.Transaction.Context.V1;
 
-namespace Payment.Processor.Transaction.Model
+namespace Payment.Processor.Transaction.Model.V1
 {
     /// <summary>
     /// Describes the basic behavior of a transaction.

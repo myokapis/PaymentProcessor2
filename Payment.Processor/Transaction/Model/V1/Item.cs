@@ -1,6 +1,6 @@
 ﻿using System.Text.Json.Serialization;
 
-namespace Payment.Processor.Transaction.Model
+namespace Payment.Processor.Transaction.Model.V1
 {
     /// <summary>
     /// Describes an item being purchased as part of the transaction.

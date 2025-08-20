@@ -1,4 +1,4 @@
-﻿namespace Payment.Processor.Transaction.Result
+﻿namespace Payment.Processor.Transaction.Result.V1
 {
     // TODO: make sure this serializes correctly
     // TODO: see if we want to use enums or stick with the string characters.

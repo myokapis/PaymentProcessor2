@@ -1,6 +1,6 @@
 ﻿using Payment.Processor.Enums;
 
-namespace Payment.Processor.Transaction.Result
+namespace Payment.Processor.Transaction.Result.V1
 {
     // TODO: finish this and also make sure the enum serializes correctly
 

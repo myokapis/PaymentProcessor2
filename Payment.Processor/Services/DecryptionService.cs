@@ -3,7 +3,7 @@ using System.Text.Json;
 using Amazon.KeyManagementService;
 using Amazon.KeyManagementService.Model;
 using Payment.Processor.Enums;
-using Payment.Processor.Transaction.Context;
+using Payment.Processor.Transaction.Context.V1;
 
 namespace Payment.Processor.Services
 {

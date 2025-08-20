@@ -1,4 +1,4 @@
-﻿namespace Payment.Processor.Transaction.Response
+﻿namespace Payment.Processor.Transaction.Response.V1
 {
     public class ResponseContext<TTransaction> : IResponseContext<TTransaction>
     {

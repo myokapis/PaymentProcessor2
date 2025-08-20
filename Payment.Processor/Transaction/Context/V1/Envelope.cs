@@ -1,6 +1,6 @@
 ﻿using Payment.Messages;
 
-namespace Payment.Processor.Transaction.Context
+namespace Payment.Processor.Transaction.Context.V1
 {
     // TODO: see if we need this class any longer
 

@@ -1,7 +1,7 @@
 ﻿using System.Text.Json.Serialization;
-using Payment.Processor.Transaction.Context;
+using Payment.Processor.Transaction.Context.V1;
 
-namespace Payment.Processor.Transaction.Model
+namespace Payment.Processor.Transaction.Model.V1
 {
     /// <summary>
     /// Describes a credit card payment transaction.

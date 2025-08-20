@@ -1,6 +1,6 @@
 ﻿using Payment.Processor.Enums;
 
-namespace Payment.Processor.Transaction.Context
+namespace Payment.Processor.Transaction.Context.V1
 {
     /// <summary>
     /// Provides attributes pertaining to a transaction's participation in

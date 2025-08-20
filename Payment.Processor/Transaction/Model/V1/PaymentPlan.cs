@@ -1,4 +1,4 @@
-﻿namespace Payment.Processor.Transaction.Model
+﻿namespace Payment.Processor.Transaction.Model.V1
 {
     /// <summary>
     /// Describes a payment plan associated with a transaction.

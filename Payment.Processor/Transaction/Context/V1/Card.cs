@@ -1,6 +1,6 @@
 ﻿using System.Text.Json.Serialization;
 
-namespace Payment.Processor.Transaction.Context
+namespace Payment.Processor.Transaction.Context.V1
 {
     /// <summary>
     /// A model for the decrypted card data.
