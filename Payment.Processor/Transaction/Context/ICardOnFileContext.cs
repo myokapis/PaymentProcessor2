@@ -11,7 +11,7 @@ namespace Payment.Processor.Transaction.Context
         /// <summary>
         /// True if the transaction is a card on file transaction.
         /// </summary>
-        bool CardOnFile { get; set; }
+        bool CardOnFile { get; init; }
 
         /// <summary>
         /// True if the customer initiated the transaction.
@@ -21,67 +21,67 @@ namespace Payment.Processor.Transaction.Context
         /// <summary>
         /// True if the transaction is the first payment in a payment plan.
         /// </summary>
-        bool FirstPayment { get; set; }
+        bool FirstPayment { get; init; }
 
         /// <summary>
         /// True if the transaction is part of an installment payment plan.
         /// </summary>
-        bool InstallmentPayment { get; set; }
+        bool InstallmentPayment { get; init; }
 
         /// <summary>
         /// True if the merchant initiated the transaction.
         /// </summary>
-        bool MerchantInitiated { get; set; }
+        bool MerchantInitiated { get; init; }
 
         /// <summary>
         /// True if the transaction is a payment in a multipart payment plan.
         /// </summary>
-        bool MultipartPayment { get; set; }
+        bool MultipartPayment { get; init; }
 
         /// <summary>
         /// True if the transaction is a one time payment.
         /// </summary>
-        bool OneTimePayment { get; set; }
+        bool OneTimePayment { get; init; }
 
         /// <summary>
         /// The payment plan identifier.
         /// </summary>
-        string? PaymentPlanId { get; set; }
+        string? PaymentPlanId { get; init; }
 
         /// <summary>
         /// An enumeration describing the payment plan type.
         /// </summary>
-        PaymentPlanType PaymentPlanType { get; set; }
+        PaymentPlanType PaymentPlanType { get; init; }
 
         // TODO: see if this duplicates a field in another context
         /// <summary>
         /// An enumeration describing the platform from which the transaction was taken.
         /// </summary>
-        Platform Platform { get; set; }
+        Platform Platform { get; init; }
 
         /// <summary>
         /// True if the transaction is a payment in a recurring payment plan.
         /// </summary>
-        bool RecurringPayment { get; set; }
+        bool RecurringPayment { get; init; }
 
         /// <summary>
         /// True if the card should be saved as part of the transaction.
         /// </summary>
-        bool SaveCard { get; set; }
+        bool SaveCard { get; init; }
 
         /// <summary>
         /// True if the transaction is a scheduled payment.
         /// </summary>
-        bool ScheduledPayment { get; set; }
+        bool ScheduledPayment { get; init; }
 
         /// <summary>
         /// The current transaction's sequence (payment number) in a multipart payment plan.
         /// </summary>
-        int? SequenceIndicator { get; set; }
+        int? SequenceIndicator { get; init; }
 
         /// <summary>
         /// The total number of scheduled payments in the payment plan.
         /// </summary>
-        int? TotalPaymentCount { get; set; }
+        int? TotalPaymentCount { get; init; }
     }
 }

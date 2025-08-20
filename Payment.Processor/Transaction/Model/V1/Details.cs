@@ -16,9 +16,11 @@ namespace Payment.Processor.Transaction.Model
         [RegularExpression(@"^(AUTH|AUTO_VOID|BALANCE_INQUIRY|CAPTURE|CARD_AUTHENTICATION|PARTIAL_REVERSAL|PRE_AUTH|RETURN|SALE|TIMEOUT_REVERSAL|VOID)$")]
         public required string Action { get; init; }
 
+        // TODO: verify that the associated id has the ch_
         /// <summary>
         /// The token from a prior transaction that is associated with the current request.
         /// </summary>
+        [RegularExpression(@"(?i)^ch_[0-9A-F]{8}-(?:[0-9A-F]{4}-){3}[0-9A-F]{12}$")]
         public string? AssociatedId { get; init; }
 
         /// <summary>
@@ -69,9 +71,11 @@ namespace Payment.Processor.Transaction.Model
         /// </summary>
         public int? FoodAmount { get; init; }
 
+        // TODO: verify that the id has the ch_
         /// <summary>
         /// The token from the current transaction.
         /// </summary>
+        [RegularExpression(@"(?i)^ch_[0-9A-F]{8}-(?:[0-9A-F]{4}-){3}[0-9A-F]{12}$")]
         public string? Id { get; set; }
 
         /// <summary>
@@ -82,9 +86,11 @@ namespace Payment.Processor.Transaction.Model
         // TODO: see if this should be boolean and if we should even use it
         public object? Moto { get; init; }
 
+        // TODO: verify that the original id has the ch_
         /// <summary>
         /// The token from the original transaction associated with the current transaction.
         /// </summary>
+        [RegularExpression(@"(?i)^ch_[0-9A-F]{8}-(?:[0-9A-F]{4}-){3}[0-9A-F]{12}$")]
         public string? OriginalId { get; init; }
 
         // TODO: see what this is an if we should even use it

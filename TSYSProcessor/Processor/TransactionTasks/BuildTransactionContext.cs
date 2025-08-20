@@ -28,11 +28,6 @@ namespace TsysProcessor.Processor.TransactionSteps
         ) : base(workflowContext)
         {
             this.transactionContextBuilder = transactionContextBuilder;
-            //this.actionContextBuilder = actionContextBuilder;
-            //this.cardContextBuilder = cardContextBuilder;
-            //this.cardOnFileContextBuilder = cardOnFileContextBuilder;
-            //this.envelopeBuilder = envelopeBuilder;
-            //this.readerContextBuilder = readerContextBuilder;
         }
 
         protected override async Task<bool> RunActiveAsync()

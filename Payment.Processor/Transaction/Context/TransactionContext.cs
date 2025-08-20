@@ -17,42 +17,42 @@ namespace Payment.Processor.Transaction.Context
         /// <summary>
         /// The action context derived from the transaction.
         /// </summary>
-        public ActionContext ActionContext { get; set; }
+        public ActionContext ActionContext { get; init; }
 
         /// <summary>
         /// The card context derived from the transaction.
         /// </summary>
-        public CardContext CardContext { get; set; }
+        public CardContext CardContext { get; init; }
 
         /// <summary>
         /// The card on file context derived from the transaction.
         /// </summary>
-        public CardOnFileContext CardOnFileContext { get; set; }
+        public CardOnFileContext CardOnFileContext { get; init; }
 
         /// <summary>
         /// The transaction details.
         /// </summary>
-        public Details Details { get; set; }
+        public Details Details { get; init; }
 
         /// <summary>
         /// The envelope associated with the transaction.
         /// </summary>
-        public TEnvelope? Envelope { get; set; }
+        public TEnvelope? Envelope { get; init; }
 
         /// <summary>
         /// A model describing the merchant participating in the transaction.
         /// </summary>
-        public Merchant Merchant { get; set; }
+        public Merchant Merchant { get; init; }
 
         /// <summary>
         /// The merchant's processor settings and attributes.
         /// </summary>
-        public TAttributes ProcessorAttributes { get; set; }
+        public TAttributes ProcessorAttributes { get; init; }
 
         /// <summary>
         /// The reader context derived from the transaction.
         /// </summary>
-        public ReaderContext ReaderContext { get; set; }
+        public ReaderContext ReaderContext { get; init; }
 #pragma warning restore CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider adding the 'required' modifier or declaring as nullable.
     }
 }

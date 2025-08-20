@@ -16,46 +16,46 @@ namespace Payment.Processor.Transaction.Context
         /// <summary>
         /// The address associated with the card.
         /// </summary>
-        public string? Address { get; set; }
+        public string? Address { get; init; }
 
         /// <summary>
         /// The card brand name.
         /// </summary>
-        public required string Brand { get; set; }
+        public required string Brand { get; init; }
 
         /// <summary>
         /// The verification code from the card.
         /// </summary>
         [JsonPropertyName("cvv")]
-        public string? CVV { get; set; }
+        public string? CVV { get; init; }
 
         /// <summary>
         /// The data source that provided the card.
         /// </summary>
         [JsonPropertyName("data_source")]
-        public required string DataSource { get; set; }
+        public required string DataSource { get; init; }
 
         /// <summary>
         /// The expiration month of the card.
         /// </summary>
         [JsonPropertyName("expiration_month")]
-        public required string ExpirationMonth { get; set; }
+        public required string ExpirationMonth { get; init; }
 
         /// <summary>
         /// The expiration year of the card.
         /// </summary>
         [JsonPropertyName("expiration_year")]
-        public required string ExpirationYear { get; set; }
+        public required string ExpirationYear { get; init; }
 
         /// <summary>
         /// The name associated with the card.
         /// </summary>
-        public string? Name { get; set; }
+        public string? Name { get; init; }
 
         /// <summary>
         /// The card number.
         /// </summary>
-        public string? Number { get; set; }
+        public string? Number { get; init; }
 
         /// <summary>
         /// The service code from the card.
@@ -67,30 +67,30 @@ namespace Payment.Processor.Transaction.Context
         /// The TLV data generated from the card and the transaction.
         /// </summary>
         [JsonPropertyName("tlv")]
-        public string? TLV { get; set; }
+        public string? TLV { get; init; }
 
         /// <summary>
         /// The track one data read from the card's magnetic stripe.
         /// </summary>
         [JsonPropertyName("track1")]
-        public string? Track1 { get; set; }
+        public string? Track1 { get; init; }
 
         /// <summary>
         /// The track two data read from the card's magnetic stripe.
         /// </summary>
         [JsonPropertyName("track2")]
-        public string? Track2 { get; set; }
+        public string? Track2 { get; init; }
 
         /// <summary>
         /// The transaction method used to acquire the card data.
         /// </summary>
         [JsonPropertyName("transaction_method")]
-        public required string TransactionMethod { get; set; }
+        public required string TransactionMethod { get; init; }
 
         /// <summary>
         /// The zip code associated with the card.
         /// </summary>
         [JsonPropertyName("zip_code")]
-        public string? ZipCode { get; set; }
+        public string? ZipCode { get; init; }
     }
 }
