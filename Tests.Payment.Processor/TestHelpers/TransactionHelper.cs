@@ -1,5 +1,5 @@
 ﻿using Payment.Processor.Extensions;
-using Payment.Processor.Transaction.Model;
+using Payment.Processor.Transaction.Model.V1;
 
 namespace Tests.Payment.Processor.TestHelpers
 {

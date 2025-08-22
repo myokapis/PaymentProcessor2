@@ -1,5 +1,5 @@
 ﻿using Payment.Messages;
-using Payment.Processor.Transaction.Result;
+using Payment.Processor.Transaction.Result.V1;
 using Payment.Workflow;
 using Payment.Workflow.Interfaces;
 using TsysProcessor.Responses;

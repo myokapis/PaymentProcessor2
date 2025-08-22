@@ -1,8 +1,8 @@
 ﻿using FluentAssertions;
-using Payment.Processor.Builders;
+using Payment.Processor.Builders.V1;
 using Payment.Processor.Enums;
-using Payment.Processor.Transaction.Context;
-using Payment.Processor.Transaction.Model;
+using Payment.Processor.Transaction.Context.V1;
+using Payment.Processor.Transaction.Model.V1;
 using Tests.Payment.Processor.TestHelpers;
 
 namespace Tests.Payment.Processor.Builders

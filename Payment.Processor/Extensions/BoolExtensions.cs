@@ -1,6 +1,4 @@
-﻿using System.Runtime.CompilerServices;
-
-namespace Payment.Processor.Extensions
+﻿namespace Payment.Processor.Extensions
 {
     /// <summary>
     /// Extensions to tbe boolean class.

@@ -1,4 +1,4 @@
-﻿using Payment.Processor.Transaction.Context;
+﻿using Payment.Processor.Transaction.Context.V1;
 
 namespace Tests.Payment.Processor.TestHelpers
 {

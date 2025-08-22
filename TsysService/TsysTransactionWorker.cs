@@ -3,7 +3,7 @@ using Amazon.SQS;
 using Amazon.SQS.Model;
 using Microsoft.Extensions.Options;
 using Payment.Processor.Enums;
-using Payment.Processor.Transaction.Result;
+using Payment.Processor.Transaction.Result.V1;
 using Payment.Service;
 using Payment.Workflow.Interfaces;
 using Serilog;
